@@ -14,70 +14,70 @@ const Properties = () => {
   // Sample property data
   const sampleProperties: PropertyType[] = [
     {
-      id: 1,
+      id: "1",
       title: "3 Bedroom Apartment",
-      location: "Lekki Phase 1, Lagos",
+      address: "Lekki Phase 1, Lagos",
       price: 75000000,
-      bedrooms: 3,
-      bathrooms: 3,
-      area: 1500,
-      type: "apartment",
-      image: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+      beds: 3,
+      baths: 3,
+      sqft: 1500,
+      image: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      category: "apartment"
     },
     {
-      id: 2,
+      id: "2",
       title: "4 Bedroom Duplex",
-      location: "Victoria Island, Lagos",
+      address: "Victoria Island, Lagos",
       price: 150000000,
-      bedrooms: 4,
-      bathrooms: 4,
-      area: 2500,
-      type: "house",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+      beds: 4,
+      baths: 4,
+      sqft: 2500,
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      category: "house"
     },
     {
-      id: 3,
+      id: "3",
       title: "Luxury Villa",
-      location: "Banana Island, Lagos",
+      address: "Banana Island, Lagos",
       price: 250000000,
-      bedrooms: 5,
-      bathrooms: 6,
-      area: 3200,
-      type: "villa",
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1475&q=80"
+      beds: 5,
+      baths: 6,
+      sqft: 3200,
+      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1475&q=80",
+      category: "villa"
     },
     {
-      id: 4,
+      id: "4",
       title: "Office Space",
-      location: "Ikoyi, Lagos",
+      address: "Ikoyi, Lagos",
       price: 90000000,
-      bedrooms: 0,
-      bathrooms: 2,
-      area: 1200,
-      type: "commercial",
-      image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80"
+      beds: 0,
+      baths: 2,
+      sqft: 1200,
+      image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80",
+      category: "commercial"
     },
     {
-      id: 5,
+      id: "5",
       title: "2 Bedroom Flat",
-      location: "Yaba, Lagos",
+      address: "Yaba, Lagos",
       price: 45000000,
-      bedrooms: 2,
-      bathrooms: 2,
-      area: 950,
-      type: "apartment",
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+      beds: 2,
+      baths: 2,
+      sqft: 950,
+      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      category: "apartment"
     },
     {
-      id: 6,
+      id: "6",
       title: "Land for Development",
-      location: "Ajah, Lagos",
+      address: "Ajah, Lagos",
       price: 35000000,
-      bedrooms: 0,
-      bathrooms: 0,
-      area: 5000,
-      type: "land",
-      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80"
+      beds: 0,
+      baths: 0,
+      sqft: 5000,
+      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
+      category: "land"
     }
   ];
 
@@ -124,7 +124,7 @@ const Properties = () => {
             <PropertyGrid 
               properties={selectedCategory === 'all' 
                 ? sampleProperties 
-                : sampleProperties.filter(p => p.type === selectedCategory)
+                : sampleProperties.filter(p => p.category === selectedCategory)
               } 
               title="Available Properties"
               description="Find your perfect property from our exclusive collection" 
