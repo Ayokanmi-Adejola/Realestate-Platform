@@ -17,6 +17,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Properties', href: '/properties' },
+    { name: 'Lands', href: '/lands' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
@@ -45,7 +46,7 @@ const Navbar = () => {
         title: "Search initiated",
         description: `Searching for "${searchQuery}"`,
       });
-      
+
       // Navigate to properties page with the search query
       navigate(`/properties?search=${encodeURIComponent(searchQuery)}`);
       setSearchQuery('');
@@ -59,8 +60,8 @@ const Navbar = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'py-3 glass shadow-sm' 
+      isScrolled
+        ? 'py-3 glass shadow-sm'
         : 'py-6 bg-transparent'
     }`}>
       <div className="container-custom">
@@ -73,11 +74,11 @@ const Navbar = () => {
             <ul className="flex space-x-8">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <Link 
+                  <Link
                     to={link.href}
                     className={`text-sm font-medium transition-colors hover:text-estate-accent ${
-                      location.pathname === link.href 
-                        ? 'text-estate-accent' 
+                      location.pathname === link.href
+                        ? 'text-estate-accent'
                         : 'text-foreground'
                     }`}
                   >
@@ -118,13 +119,13 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-2">
-            <button 
+            <button
               className="p-2 rounded-full hover:bg-muted/50"
               onClick={toggleSearch}
             >
               <Search size={20} />
             </button>
-            <button 
+            <button
               className="p-2 rounded-full hover:bg-muted/50"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
@@ -157,7 +158,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div 
+      <div
         className={`fixed inset-0 top-[57px] z-40 bg-background/95 backdrop-blur-sm transform transition-transform duration-300 ease-in-out md:hidden ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
@@ -165,12 +166,12 @@ const Navbar = () => {
         <div className="container-custom py-6">
           <nav className="flex flex-col space-y-4">
             {navLinks.map((link) => (
-              <Link 
+              <Link
                 key={link.name}
                 to={link.href}
                 className={`py-2 text-lg font-medium transition-colors ${
-                  location.pathname === link.href 
-                    ? 'text-estate-accent' 
+                  location.pathname === link.href
+                    ? 'text-estate-accent'
                     : 'text-foreground'
                 }`}
               >

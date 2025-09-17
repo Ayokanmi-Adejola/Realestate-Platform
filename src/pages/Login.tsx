@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import * as z from "zod";
 import { useToast } from "@/components/ui/use-toast";
 import Navbar from '../components/Navbar';
 import Logo from '../components/Logo';
+import { useAuth } from '../contexts/AuthContext';
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -19,7 +20,7 @@ const formSchema = z.object({
 const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,24 +29,28 @@ const Login = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // In a real app, this would make an API call
-    console.log("Login form submitted:", values);
-    
-    // Simulate login success
-    toast({
-      title: "Welcome back!",
-      description: "You have been successfully logged in.",
-    });
-    
-    // Redirect to home page
-    setTimeout(() => navigate("/"), 1500);
+  const { login, isAuthenticated } = useAuth();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/profile');
+    }
+  }, [isAuthenticated, navigate]);
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const success = await login(values.email, values.password);
+
+    if (success) {
+      // Redirect to profile page
+      navigate("/profile");
+    }
   };
 
   return (
     <div className="min-h-screen bg-muted/30">
       <Navbar />
-      
+
       <main className="pt-24 pb-16">
         <div className="container-custom max-w-md mx-auto">
           <div className="bg-card rounded-xl shadow-md p-8">
@@ -54,7 +59,7 @@ const Login = () => {
               <h1 className="text-2xl font-medium mb-2">Welcome Back</h1>
               <p className="text-muted-foreground">Sign in to your account</p>
             </div>
-            
+
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
@@ -70,7 +75,7 @@ const Login = () => {
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="password"
@@ -84,13 +89,13 @@ const Login = () => {
                     </FormItem>
                   )}
                 />
-                
+
                 <Button type="submit" className="w-full bg-estate hover:bg-estate/90">
                   Sign In
                 </Button>
               </form>
             </Form>
-            
+
             <div className="mt-6 text-center text-sm">
               <p className="text-muted-foreground">
                 Don't have an account?{" "}

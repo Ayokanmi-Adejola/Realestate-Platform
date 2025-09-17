@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import * as z from "zod";
 import { useToast } from "@/components/ui/use-toast";
 import Navbar from '../components/Navbar';
 import Logo from '../components/Logo';
+import { useAuth } from '../contexts/AuthContext';
 
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -24,7 +25,7 @@ const formSchema = z.object({
 const Register = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,24 +36,37 @@ const Register = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // In a real app, this would make an API call
-    console.log("Registration form submitted:", values);
-    
-    // Simulate registration success
-    toast({
-      title: "Registration successful!",
-      description: "Your account has been created.",
-    });
-    
-    // Redirect to home page
-    setTimeout(() => navigate("/"), 1500);
+  const { register, isAuthenticated } = useAuth();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/profile');
+    }
+  }, [isAuthenticated, navigate]);
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (values.password !== values.confirmPassword) {
+      toast({
+        title: "Passwords do not match",
+        description: "Please make sure your passwords match",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const success = await register(values.fullName, values.email, values.password);
+
+    if (success) {
+      // Redirect to profile page
+      navigate("/profile");
+    }
   };
 
   return (
     <div className="min-h-screen bg-muted/30">
       <Navbar />
-      
+
       <main className="pt-24 pb-16">
         <div className="container-custom max-w-md mx-auto">
           <div className="bg-card rounded-xl shadow-md p-8">
@@ -61,7 +75,7 @@ const Register = () => {
               <h1 className="text-2xl font-medium mb-2">Create an Account</h1>
               <p className="text-muted-foreground">Join Adejola Homes & Properties today</p>
             </div>
-            
+
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
                 <FormField
@@ -77,7 +91,7 @@ const Register = () => {
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="email"
@@ -91,7 +105,7 @@ const Register = () => {
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="password"
@@ -105,7 +119,7 @@ const Register = () => {
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="confirmPassword"
@@ -119,13 +133,13 @@ const Register = () => {
                     </FormItem>
                   )}
                 />
-                
+
                 <Button type="submit" className="w-full bg-estate hover:bg-estate/90 mt-4">
                   Create Account
                 </Button>
               </form>
             </Form>
-            
+
             <div className="mt-6 text-center text-sm">
               <p className="text-muted-foreground">
                 Already have an account?{" "}

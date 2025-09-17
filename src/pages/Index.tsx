@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import PropertyGrid from '../components/PropertyGrid';
 import CategoryFilter from '../components/CategoryFilter';
@@ -83,7 +84,7 @@ const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [filteredProperties, setFilteredProperties] = useState<PropertyType[]>(properties);
   const [isLoaded, setIsLoaded] = useState(false);
-  
+
   // Apply filter when category changes
   useEffect(() => {
     if (selectedCategory === 'all') {
@@ -92,7 +93,7 @@ const Index = () => {
       setFilteredProperties(properties.filter(p => p.category === selectedCategory));
     }
   }, [selectedCategory]);
-  
+
   // Set loaded state after initial render
   useEffect(() => {
     setIsLoaded(true);
@@ -102,19 +103,19 @@ const Index = () => {
     <div className={`min-h-screen ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
       <Navbar />
       <Hero />
-      
-      <CategoryFilter 
-        categories={categories} 
+
+      <CategoryFilter
+        categories={categories}
         onSelectCategory={setSelectedCategory}
         selectedCategory={selectedCategory}
       />
-      
-      <PropertyGrid 
+
+      <PropertyGrid
         properties={filteredProperties}
         title="Featured Properties"
         description="Discover our handpicked selection of premium properties, each offering a unique blend of luxury, comfort, and style."
       />
-      
+
       {/* Statistics Section */}
       <section className="py-20 bg-estate text-estate-foreground">
         <div className="container-custom">
@@ -138,7 +139,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Call to Action */}
       <section className="py-20 bg-muted">
         <div className="container-custom">
@@ -148,17 +149,20 @@ const Index = () => {
               Let us guide you through the journey of finding the perfect property that matches your lifestyle and aspirations.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button className="btn-estate px-8 py-3">
+              <Link to="/properties" className="btn-estate px-8 py-3">
                 Browse Properties
-              </button>
-              <button className="btn-estate-outline px-8 py-3">
+              </Link>
+              <Link to="/lands" className="btn-estate px-8 py-3 bg-estate-accent">
+                Explore Nigerian Lands
+              </Link>
+              <Link to="/contact" className="btn-estate-outline px-8 py-3">
                 Contact an Agent
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
-      
+
       <Footer />
     </div>
   );

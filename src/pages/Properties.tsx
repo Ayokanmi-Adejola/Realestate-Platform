@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import PropertyGrid from '../components/PropertyGrid';
@@ -10,7 +11,7 @@ import { PropertyType } from '../components/PropertyCard';
 const Properties = () => {
   const { toast } = useToast();
   const [selectedCategory, setSelectedCategory] = useState('all');
-  
+
   // Sample property data
   const sampleProperties: PropertyType[] = [
     {
@@ -92,7 +93,7 @@ const Properties = () => {
       description: `Showing ${category === 'all' ? 'all properties' : `${category} properties`}`,
     });
   };
-  
+
   useEffect(() => {
     // Show toast when page loads
     toast({
@@ -104,35 +105,43 @@ const Properties = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      
+
       <main className="flex-grow pt-28 pb-16">
         <div className="container-custom">
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-2">Our Properties</h1>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground mb-4">
               Explore our wide range of properties across Nigeria
             </p>
+            <div className="flex flex-wrap gap-4">
+              <Link to="/properties" className="inline-flex items-center px-4 py-2 rounded-lg bg-estate text-estate-foreground">
+                All Properties
+              </Link>
+              <Link to="/lands" className="inline-flex items-center px-4 py-2 rounded-lg bg-estate-accent text-white">
+                Nigerian Lands
+              </Link>
+            </div>
           </div>
-          
-          <CategoryFilter 
-            categories={categories} 
+
+          <CategoryFilter
+            categories={categories}
             onSelectCategory={handleCategorySelect}
             selectedCategory={selectedCategory}
           />
-          
+
           <div className="mt-8">
-            <PropertyGrid 
-              properties={selectedCategory === 'all' 
-                ? sampleProperties 
+            <PropertyGrid
+              properties={selectedCategory === 'all'
+                ? sampleProperties
                 : sampleProperties.filter(p => p.category === selectedCategory)
-              } 
+              }
               title="Available Properties"
-              description="Find your perfect property from our exclusive collection" 
+              description="Find your perfect property from our exclusive collection"
             />
           </div>
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );
